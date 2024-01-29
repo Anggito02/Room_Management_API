@@ -1,4 +1,4 @@
-namespace Room_Management_API.Domain
+namespace Room_Management_API.Domain.Users
 {
     public class Users
     {

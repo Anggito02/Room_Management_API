@@ -1,4 +1,4 @@
-namespace Room_Management_API.Domain
+namespace Room_Management_API.Domain.Rooms
 {
     public class RoomMedias
     {

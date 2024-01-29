@@ -1,11 +1,11 @@
-namespace Room_Management_API.Domain
+namespace Room_Management_API.Domain.Users
 {
-    public class RoomStatus
+    public class EmployeeStatus
     {
         public Guid Id { get; set; }
         public string StatusName { get; set; } = string.Empty;
 
         // Navigation Properties
-        public ICollection<Rooms> Rooms { get; set; } = null!;
+        public ICollection<Users> Users { get; set; } = null!;
     }
 }
