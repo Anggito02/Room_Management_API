@@ -15,6 +15,6 @@ namespace Room_Management_API.Domain.Rooms
         public string DeletedAt { get; set; } = string.Empty;
 
         // Navigation Properties
-        public ICollection<RoomMedia> RoomMedia { get; set; } = null!;
+        public IList<RoomMedia> RoomMedia { get; set; } = null!;
     }
 }

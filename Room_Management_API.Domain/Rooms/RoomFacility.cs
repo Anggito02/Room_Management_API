@@ -7,8 +7,6 @@ namespace Room_Management_API.Domain.Rooms
 
         // Foreign Key
         public Guid RoomId { get; set; }
-        public Guid FacilityId { get; set; }
-        public Rooms Room { get; set; } = null!;
-        public RoomFacilities RoomFacilities { get; set; } = null!;
+        public Guid RoomFacilitiesId { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
 
         public RoomType CreateRoomType(RoomType roomType)
         {
-            throw new NotImplementedException();
+            return _roomTypeRepository.CreateRoomType(roomType);
         }
 
         public List<RoomType> GetAllRoomTypes()
@@ -19,12 +19,12 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
             return _roomTypeRepository.GetAllRoomTypes();
         }
 
-        public RoomType GetRoomTypeById(Guid id)
+        public RoomType? GetRoomTypeById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<RoomType> GetRoomTypeByName(string name)
+        public List<RoomType>? GetRoomTypeByName(string name)
         {
             throw new NotImplementedException();
         }
