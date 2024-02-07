@@ -21,7 +21,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
         }   
 
         [HttpPost]
-        public ActionResult<RoomType> Post([FromBody] RoomType roomType)
+        public ActionResult<RoomType> Post(RoomType roomType)
         {
             return Ok(_roomTypeService.CreateRoomType(roomType));
         }

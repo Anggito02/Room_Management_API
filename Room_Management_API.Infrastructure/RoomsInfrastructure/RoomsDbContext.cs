@@ -28,7 +28,7 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure {
                 .HasForeignKey(r => r.RoomStatusId);
 
             modelBuilder.Entity<Rooms>()
-                .Property( p => p.RoomArea )
+                .Property(p => p.RoomArea)
                 .HasPrecision(10, 2);
 
             // Room Facility
