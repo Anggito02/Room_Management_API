@@ -1,6 +1,7 @@
 using Room_Management_API.Domain.Rooms;
 using Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType;
 using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
 {
@@ -45,7 +46,11 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
 
         public List<RoomType>? GetRoomTypeByTypeName(string typeName)
         {
-            throw new NotImplementedException();
+            try {
+                return _roomManagementDbContext.ROOM_TYPE.Where(t => EF.Functions.ILike(t.TypeName, typeName)).ToList();
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
