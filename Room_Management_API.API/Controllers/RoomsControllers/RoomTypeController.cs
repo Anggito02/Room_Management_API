@@ -12,6 +12,18 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
     {
         private readonly IRoomTypeService _roomTypeService = roomTypeService;
 
+        [HttpGet("{pkId}")]
+        public ActionResult<RoomTypeResultVM> Get(Guid pkId)
+        {
+            try {
+                var result = _roomTypeService.GetRoomTypeByPkId(pkId);
+
+                return StatusCode(200, result);
+            } catch (Exception ex) {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet]
         public ActionResult<List<RoomTypeResultVM>> Get()
         {   
@@ -19,8 +31,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
                 var result = _roomTypeService.GetAllRoomTypes();
 
                 return StatusCode(200, result);
-            } 
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 return StatusCode(500, ex.Message);
             }
         }

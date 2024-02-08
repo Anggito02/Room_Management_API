@@ -36,7 +36,11 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
 
         public RoomType? GetRoomTypeByPkId(Guid id)
         {
-            throw new NotImplementedException();
+            try {
+                return _roomManagementDbContext.ROOM_TYPE.Find(id);
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<RoomType>? GetRoomTypeByTypeName(string typeName)

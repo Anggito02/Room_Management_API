@@ -8,7 +8,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType
     {
         RoomTypeResultVM CreateRoomType(RoomTypeInputVM inputVM);
         RoomTypeResultVM GetAllRoomTypes();
-        RoomTypeResultVM? GetRoomTypeById(Guid id);
+        RoomTypeResultVM? GetRoomTypeByPkId(Guid id);
         RoomTypeResultVM? GetRoomTypeByTypeName(string typeName);
     }
 }

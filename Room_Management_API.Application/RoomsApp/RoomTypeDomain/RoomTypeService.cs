@@ -46,9 +46,18 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
             }
         }
 
-        public RoomTypeResultVM? GetRoomTypeById(Guid id)
+        public RoomTypeResultVM? GetRoomTypeByPkId(Guid id)
         {
-            throw new NotImplementedException();
+            try {
+                var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new Exception("Room type not found");             
+
+                var resultVM = new RoomTypeResultVM();
+                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(entity));
+
+                return resultVM;
+            } catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
 
         public RoomTypeResultVM? GetRoomTypeByTypeName(string typeName)
