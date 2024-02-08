@@ -5,7 +5,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType
 {
     public interface IRoomTypeRepository
     {
-        RoomType CreateRoomType(RoomTypeInputDTO roomTypeInputDTO);
+        RoomType CreateRoomType(RoomTypeInputDTO inputDTO);
         List<RoomType> GetAllRoomTypes();
         RoomType? GetRoomTypeByPkId(Guid id);
         List<RoomType>? GetRoomTypeByTypeName(string typeName);

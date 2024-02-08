@@ -14,22 +14,36 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
         private readonly IRoomTypeRepository _roomTypeRepository = roomTypeRepository;
         private readonly IMapper _mapper = mapper;
 
-        public RoomTypeResultVM CreateRoomType(RoomTypeInputVM roomTypeInputVM)
+        public RoomTypeResultVM CreateRoomType(RoomTypeInputVM inputVM)
         {
-            throw new NotImplementedException();
+            try {
+                var entity = _roomTypeRepository.CreateRoomType(inputVM.Data);
+                
+                var resultVM = new RoomTypeResultVM();
+                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(entity));
+
+                return resultVM;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
         public RoomTypeResultVM GetAllRoomTypes()
         {
-            var entity = _roomTypeRepository.GetAllRoomTypes();
-            var resultVM = new RoomTypeResultVM();
+            try {
+                var entity = _roomTypeRepository.GetAllRoomTypes();
+                var resultVM = new RoomTypeResultVM();
 
-            foreach (var e in entity)
-            {
-                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
-            }
+                foreach (var e in entity)
+                {
+                    resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
+                }
 
             return resultVM;
+            } catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
 
         public RoomTypeResultVM? GetRoomTypeById(Guid id)

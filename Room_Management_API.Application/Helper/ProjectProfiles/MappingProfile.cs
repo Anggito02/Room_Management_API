@@ -9,6 +9,7 @@ namespace Room_Management_API.Application.Helper.ProjectProfiles
         public MappingProfile()
         {
             CreateMap<RoomType, RoomTypeResultDTO>();
+            CreateMap<RoomTypeInputDTO, RoomType>();
         }
     }
 }

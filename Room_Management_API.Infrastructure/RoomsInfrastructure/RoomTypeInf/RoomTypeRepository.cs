@@ -10,9 +10,23 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
     {
         private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
 
-        public RoomType CreateRoomType(RoomTypeInputDTO roomTypeInputDTO)
+        public RoomType CreateRoomType(RoomTypeInputDTO inputDTO)
         {
-            throw new NotImplementedException();
+            try {
+                RoomType roomType = new()
+                {
+                    Id = Guid.NewGuid(),
+                    TypeName = inputDTO.TypeName,
+                    CreatedAt = DateTime.UtcNow
+                };
+                
+                _roomManagementDbContext.ROOM_TYPE.Add(roomType);
+                _roomManagementDbContext.SaveChanges();
+
+                return roomType;
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<RoomType> GetAllRoomTypes()
