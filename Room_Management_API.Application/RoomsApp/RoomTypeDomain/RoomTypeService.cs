@@ -62,7 +62,21 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
 
         public RoomTypeResultVM? GetRoomTypeByTypeName(string typeName)
         {
-            throw new NotImplementedException();
+            try {
+                typeName = "%" + typeName.Replace("-", " ") + "%";
+
+                var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName) ?? throw new Exception("Room type not found");
+
+                var resultVM = new RoomTypeResultVM();
+                
+                foreach (var e in entity) {
+                    resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
+                }
+
+                return resultVM;
+            } catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
