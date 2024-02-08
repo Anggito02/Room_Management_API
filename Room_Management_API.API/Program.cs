@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType;
 using Room_Management_API.Application.RoomsApp.RoomTypeDomain;
 
-using Room_Management_API.Infrastructure;
 using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf;
 using Room_Management_API.Infrastructure.RoomsInfrastructure;
+
+using AutoMapper;
+using Room_Management_API.Application.Helper.ProjectProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,15 @@ builder.Services.AddDbContext<RoomsDbContext>(
 // Dependency Injection
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
+
+// Automapper
+var mapperConfiguration = new MapperConfiguration(conf =>
+{
+    conf.AddProfile(typeof(MappingProfile));
+});
+
+var mapper = mapperConfiguration.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

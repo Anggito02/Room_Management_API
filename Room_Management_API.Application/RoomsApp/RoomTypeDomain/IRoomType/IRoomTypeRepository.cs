@@ -1,15 +1,13 @@
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
 using Room_Management_API.Domain.Rooms;
 
 namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType
 {
     public interface IRoomTypeRepository
     {
-        RoomType CreateRoomType(RoomType roomType);
+        RoomType CreateRoomType(RoomTypeInputDTO roomTypeInputDTO);
         List<RoomType> GetAllRoomTypes();
-        RoomType? GetRoomTypeById(Guid id);
-        List<RoomType>? GetRoomTypeByName(string name);
-        RoomType UpdateRoomType(RoomType roomType);
-        bool DeleteRoomTypeById(Guid id);
-        bool DeleteRoomTypeByName(string name);
+        RoomType? GetRoomTypeByPkId(Guid id);
+        List<RoomType>? GetRoomTypeByTypeName(string typeName);
     }
 }

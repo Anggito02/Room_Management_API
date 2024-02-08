@@ -1,45 +1,43 @@
 using Room_Management_API.Domain.Rooms;
 using Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType;
+using Room_Management_API.Application.Helper.ViewModels.RoomsVMs;
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+using AutoMapper;
 
 namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
 {
     public class RoomTypeService(
-        IRoomTypeRepository roomTypeRepository
+        IRoomTypeRepository roomTypeRepository,
+        IMapper mapper
         ) : IRoomTypeService
     {
         private readonly IRoomTypeRepository _roomTypeRepository = roomTypeRepository;
+        private readonly IMapper _mapper = mapper;
 
-        public RoomType CreateRoomType(RoomType roomType)
-        {
-            return _roomTypeRepository.CreateRoomType(roomType);
-        }
-
-        public List<RoomType> GetAllRoomTypes()
-        {
-            return _roomTypeRepository.GetAllRoomTypes();
-        }
-
-        public RoomType? GetRoomTypeById(Guid id)
+        public RoomTypeResultVM CreateRoomType(RoomTypeInputVM roomTypeInputVM)
         {
             throw new NotImplementedException();
         }
 
-        public List<RoomType>? GetRoomTypeByName(string name)
+        public RoomTypeResultVM GetAllRoomTypes()
+        {
+            var entity = _roomTypeRepository.GetAllRoomTypes();
+            var resultVM = new RoomTypeResultVM();
+
+            foreach (var e in entity)
+            {
+                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
+            }
+
+            return resultVM;
+        }
+
+        public RoomTypeResultVM? GetRoomTypeById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public RoomType UpdateRoomType(RoomType roomType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteRoomTypeById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteRoomTypeByName(string name)
+        public RoomTypeResultVM? GetRoomTypeByTypeName(string typeName)
         {
             throw new NotImplementedException();
         }

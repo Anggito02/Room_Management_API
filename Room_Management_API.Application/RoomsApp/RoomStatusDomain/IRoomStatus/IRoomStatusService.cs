@@ -6,10 +6,10 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus
     {
         RoomStatus CreateRoomStatus(RoomStatus roomStatus);
         List<RoomStatus> GetAllRoomStatus();
-        RoomStatus? GetRoomStatusById(Guid id);
+        RoomStatus? GetRoomStatusByPkId(Guid id);
         List<RoomStatus>? GetRoomStatusByName(string name);
         RoomStatus UpdateRoomStatus(RoomStatus roomStatus);
-        bool DeleteRoomStatusById(Guid id);
+        bool DeleteRoomStatusByPkId(Guid id);
         bool DeleteRoomStatusByName(string name);
     }
 }

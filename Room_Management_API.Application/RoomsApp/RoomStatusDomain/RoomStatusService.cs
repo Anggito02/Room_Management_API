@@ -19,7 +19,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
             return _roomStatusRepository.GetAllRoomStatus();
         }
 
-        public RoomStatus? GetRoomStatusById(Guid id)
+        public RoomStatus? GetRoomStatusByPkId(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -34,7 +34,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
             throw new NotImplementedException();
         }
 
-        public bool DeleteRoomStatusById(Guid id)
+        public bool DeleteRoomStatusByPkId(Guid id)
         {
             throw new NotImplementedException();
         }
