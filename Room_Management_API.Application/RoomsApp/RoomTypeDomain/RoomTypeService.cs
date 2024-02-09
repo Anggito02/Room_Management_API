@@ -24,8 +24,8 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
 
                 return resultVM;
             }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
+            catch (Exception) {
+                throw;
             }
         }
 
@@ -41,22 +41,22 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
                 }
 
             return resultVM;
-            } catch (Exception ex){
-                throw new Exception(ex.Message);
+            } catch (Exception){
+                throw;
             }
         }
 
         public RoomTypeResultVM? GetRoomTypeByPkId(Guid id)
         {
             try {
-                var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new Exception("Room type not found");             
+                var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new KeyNotFoundException("Room type not found");             
 
                 var resultVM = new RoomTypeResultVM();
                 resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(entity));
 
                 return resultVM;
-            } catch (Exception ex){
-                throw new Exception(ex.Message);
+            } catch (Exception){
+                throw;
             }
         }
 
@@ -65,7 +65,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
             try {
                 typeName = "%" + typeName.Replace("-", " ") + "%";
 
-                var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName) ?? throw new Exception("Room type not found");
+                var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName) ?? throw new KeyNotFoundException("Room type not found");
 
                 var resultVM = new RoomTypeResultVM();
                 
@@ -74,8 +74,8 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
                 }
 
                 return resultVM;
-            } catch (Exception ex){
-                throw new Exception(ex.Message);
+            } catch (Exception){
+                throw;
             }
         }
     }

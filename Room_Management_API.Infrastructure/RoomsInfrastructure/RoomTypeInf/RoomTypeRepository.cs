@@ -27,8 +27,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
                 _roomManagementDbContext.SaveChanges();
 
                 return roomType;
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -36,8 +36,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
         {
             try {
                 return _roomManagementDbContext.ROOM_TYPE.ToList();
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -45,8 +45,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
         {
             try {
                 return _roomManagementDbContext.ROOM_TYPE.Find(id);
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -54,8 +54,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
         {
             try {
                 return _roomManagementDbContext.ROOM_TYPE.Where(t => EF.Functions.ILike(t.TypeName, typeName)).ToList();
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
     }

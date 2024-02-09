@@ -31,8 +31,8 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
                 }
 
                 return resultVM;
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -65,8 +65,8 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
                 }
 
                 return resultVM;
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
     }

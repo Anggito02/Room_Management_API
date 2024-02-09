@@ -20,8 +20,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
         {
             try {
                 return _roomManagementDbContext.ROOM_STATUS.ToList();
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -38,8 +38,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
         {
             try {
                 return _roomManagementDbContext.ROOM_STATUS.Where(t => EF.Functions.ILike(t.StatusName, statusName)).ToList();
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+            } catch (Exception) {
+                throw;
             }
         }
     }
