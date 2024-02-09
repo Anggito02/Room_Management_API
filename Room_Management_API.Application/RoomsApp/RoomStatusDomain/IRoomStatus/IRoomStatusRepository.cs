@@ -1,15 +1,13 @@
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
 using Room_Management_API.Domain.Rooms;
 
 namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus
 {
     public interface IRoomStatusRepository
     {
-        RoomStatus CreateRoomStatus(RoomStatus roomStatus);
+        RoomStatus CreateRoomStatus(RoomStatusInputDTO inputDTO);
         List<RoomStatus> GetAllRoomStatus();
-        RoomStatus? GetRoomStatusById(Guid id);
-        List<RoomStatus>? GetRoomStatusByName(string name);
-        RoomStatus UpdateRoomStatus(RoomStatus roomStatus);
-        bool DeleteRoomStatusById(Guid id);
-        bool DeleteRoomStatusByName(string name);
+        RoomStatus? GetRoomStatusByPkId(Guid id);
+        List<RoomStatus>? GetRoomStatusByStatusName(string statusName);
     }
 }

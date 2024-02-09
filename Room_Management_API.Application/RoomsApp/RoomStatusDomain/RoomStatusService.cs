@@ -1,47 +1,73 @@
-using Room_Management_API.Domain.Rooms;
+using AutoMapper;
+
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
+using Room_Management_API.Application.Helper.ViewModels.RoomsVMs;
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
 
 namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
 {
     public class RoomStatusService(
-        IRoomStatusRepository roomStatusRepository
+        IRoomStatusRepository roomStatusRepository,
+        IMapper mapper
         ) : IRoomStatusService
     {
         private readonly IRoomStatusRepository _roomStatusRepository = roomStatusRepository;
+        private readonly IMapper _mapper = mapper;
 
-        public RoomStatus CreateRoomStatus(RoomStatus roomStatus)
-        {
-            return _roomStatusRepository.CreateRoomStatus(roomStatus);
-        }
-
-        public List<RoomStatus> GetAllRoomStatus()
-        {
-            return _roomStatusRepository.GetAllRoomStatus();
-        }
-
-        public RoomStatus? GetRoomStatusByPkId(Guid id)
+        public RoomStatusResultVM CreateRoomStatus(RoomStatusInputVM inputVM)
         {
             throw new NotImplementedException();
         }
 
-        public List<RoomStatus>? GetRoomStatusByName(string name)
+        public RoomStatusResultVM GetAllRoomStatus()
         {
-            throw new NotImplementedException();
+            try {
+                var entity = _roomStatusRepository.GetAllRoomStatus();
+                var resultVM = new RoomStatusResultVM();
+
+                foreach (var e in entity)
+                {
+                    resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(e));
+                }
+
+                return resultVM;
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public RoomStatus UpdateRoomStatus(RoomStatus roomStatus)
+        public RoomStatusResultVM? GetRoomStatusByPkId(Guid id)
         {
-            throw new NotImplementedException();
+            try {
+                var entity = _roomStatusRepository.GetRoomStatusByPkId(id) ?? throw new KeyNotFoundException("Room status not found");
+                var resultVM = new RoomStatusResultVM();
+
+                resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(entity));
+
+                return resultVM;
+            } catch (Exception) {
+                throw;
+            }
         }
 
-        public bool DeleteRoomStatusByPkId(Guid id)
+        public RoomStatusResultVM? GetRoomStatusByStatusName(string statusName)
         {
-            throw new NotImplementedException();
-        }
+            try {
+                statusName = '%' + statusName.Replace("-", " ") + "%";
 
-        public bool DeleteRoomStatusByName(string name)
-        {
-            throw new NotImplementedException();
+                var entity = _roomStatusRepository.GetRoomStatusByStatusName(statusName) ?? throw new KeyNotFoundException("Room status not found");
+
+                var resultVM = new RoomStatusResultVM();
+
+                foreach (var e in entity)
+                {
+                    resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(e));
+                }
+
+                return resultVM;
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

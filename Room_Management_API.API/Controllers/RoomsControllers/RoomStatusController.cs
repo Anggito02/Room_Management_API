@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using Room_Management_API.Application.Helper.ViewModels.RoomsVMs;
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
-using Room_Management_API.Domain.Rooms;
 
 namespace Room_Management_API.API.Controllers.RoomsControllers
 {
@@ -13,16 +12,48 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
     {
         private readonly IRoomStatusService _roomStatusService = roomStatusService;
 
-        [HttpGet]
-        public ActionResult<List<RoomStatus>> Get()
+        [HttpGet("/api/RoomStatus/pkId/{pkId}")]
+        public ActionResult<RoomStatusResultVM> Get(Guid pkId)
         {
-            return Ok(_roomStatusService.GetAllRoomStatus());
+            try {
+                var result = _roomStatusService.GetRoomStatusByPkId(pkId);
+
+                return StatusCode(200, result);
+            } catch (Exception ex) {
+                if (ex is KeyNotFoundException) {
+                    return StatusCode(404, ex.Message);
+                }
+
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        [HttpPost]
-        public ActionResult<RoomStatus> Post([FromBody] RoomStatus roomStatus)
+        [HttpGet("/api/RoomStatus/statusName/{statusName}")]
+        public ActionResult<RoomStatusResultVM> Get(string statusName)
         {
-            return Ok(_roomStatusService.CreateRoomStatus(roomStatus));
+            try {
+                var result = _roomStatusService.GetRoomStatusByStatusName(statusName);
+
+                return StatusCode(200, result);
+            } catch (Exception ex) {
+                if (ex is KeyNotFoundException) {
+                    return StatusCode(404, ex.Message + " " + statusName);
+                }
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<List<RoomStatusResultVM>> Get()
+        {
+            try {
+                var result = _roomStatusService.GetAllRoomStatus();
+
+                return StatusCode(200, result);
+            } catch (Exception ex) {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

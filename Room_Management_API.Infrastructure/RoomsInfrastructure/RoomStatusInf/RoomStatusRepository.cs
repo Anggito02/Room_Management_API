@@ -1,5 +1,7 @@
 using Room_Management_API.Domain.Rooms;
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
 {
@@ -9,42 +11,36 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
     {
         private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
 
-        public RoomStatus CreateRoomStatus(RoomStatus roomStatus)
+        public RoomStatus CreateRoomStatus(RoomStatusInputDTO inputDTO)
         {
-            _roomManagementDbContext.ROOM_STATUS.Add(roomStatus);
-            _roomManagementDbContext.SaveChanges();
-
-            return roomStatus;
+            throw new NotImplementedException();
         }
 
         public List<RoomStatus> GetAllRoomStatus()
         {
-            return _roomManagementDbContext.ROOM_STATUS.ToList();
+            try {
+                return _roomManagementDbContext.ROOM_STATUS.ToList();
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public RoomStatus? GetRoomStatusById(Guid id)
+        public RoomStatus? GetRoomStatusByPkId(Guid id)
         {
-            return _roomManagementDbContext.ROOM_STATUS.Find(id);
+            try {
+                return _roomManagementDbContext.ROOM_STATUS.Find(id);
+            } catch (Exception) {
+                throw;
+            }
         }
 
-        public List<RoomStatus> GetRoomStatusByName(string name)
+        public List<RoomStatus>? GetRoomStatusByStatusName(string statusName)
         {
-            return _roomManagementDbContext.ROOM_STATUS.Where(t => t.StatusName == name).ToList();
-        }
-
-        public RoomStatus UpdateRoomStatus(RoomStatus roomStatus)
-        {
-            return _roomManagementDbContext.ROOM_STATUS.Update(roomStatus).Entity;
-        }
-
-        public bool DeleteRoomStatusById(Guid id)
-        {
-            return _roomManagementDbContext.ROOM_STATUS.Remove(new RoomStatus { Id = id }).Entity != null;
-        }
-
-        public bool DeleteRoomStatusByName(string name)
-        {
-            return _roomManagementDbContext.ROOM_STATUS.Remove(new RoomStatus { StatusName = name }).Entity != null;
+            try {
+                return _roomManagementDbContext.ROOM_STATUS.Where(t => EF.Functions.ILike(t.StatusName, statusName)).ToList();
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

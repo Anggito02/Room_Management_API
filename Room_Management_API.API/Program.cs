@@ -1,13 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 
-using Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType;
-using Room_Management_API.Application.RoomsApp.RoomTypeDomain;
-
-using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf;
-using Room_Management_API.Infrastructure.RoomsInfrastructure;
-
 using AutoMapper;
 using Room_Management_API.Application.Helper.ProjectProfiles;
+using Room_Management_API.Infrastructure.RoomsInfrastructure;
+
+using Room_Management_API.Application.RoomsApp.RoomTypeDomain.IRoomType;
+using Room_Management_API.Application.RoomsApp.RoomTypeDomain;
+using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf;
+
+using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
+using Room_Management_API.Application.RoomsApp.RoomStatusDomain;
+using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +35,8 @@ builder.Services.AddDbContext<RoomsDbContext>(
 // Dependency Injection
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
+builder.Services.AddScoped<IRoomStatusService, RoomStatusService>();
+builder.Services.AddScoped<IRoomStatusRepository, RoomStatusRepository>();
 
 // Automapper
 var mapperConfiguration = new MapperConfiguration(conf =>

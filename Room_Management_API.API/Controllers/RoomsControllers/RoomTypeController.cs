@@ -12,7 +12,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
     {
         private readonly IRoomTypeService _roomTypeService = roomTypeService;
 
-        [HttpGet("/api/pkId/{pkId}")]
+        [HttpGet("/api/RoomType/pkId/{pkId}")]
         public ActionResult<RoomTypeResultVM> Get(Guid pkId)
         {
             try {
@@ -24,7 +24,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
             }
         }
 
-        [HttpGet("/api/typeName/{typeName}")]
+        [HttpGet("/api/RoomType/typeName/{typeName}")]
         public ActionResult<RoomTypeResultVM> Get(string typeName)
         {
             try {
