@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+
 using Room_Management_API.Domain.Rooms;
+using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
 
 namespace Room_Management_API.Application.Helper.ProjectProfiles
 {
@@ -10,6 +11,7 @@ namespace Room_Management_API.Application.Helper.ProjectProfiles
         {
             CreateMap<RoomType, RoomTypeResultDTO>();
             CreateMap<RoomTypeInputDTO, RoomType>();
+            CreateMap<RoomStatus, RoomStatusResultDTO>();
         }
     }
 }
