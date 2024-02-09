@@ -1,19 +1,35 @@
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+
 using Room_Management_API.Domain.Rooms;
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
 using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
-using Microsoft.EntityFrameworkCore;
 
 namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
 {
     public class RoomStatusRepository(
-            RoomsDbContext roomManagementDbContext
+            RoomsDbContext roomManagementDbContext,
+            IMapper mapper
         ) : IRoomStatusRepository
     {
         private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
+        private readonly IMapper _mapper = mapper;
 
         public RoomStatus CreateRoomStatus(RoomStatusInputDTO inputDTO)
         {
-            throw new NotImplementedException();
+            try {
+                var roomStatus = _mapper.Map<RoomStatus>(inputDTO);
+
+                roomStatus.Id = Guid.NewGuid();
+                roomStatus.CreatedAt = DateTime.UtcNow;
+
+                _roomManagementDbContext.ROOM_STATUS.Add(roomStatus);
+                _roomManagementDbContext.SaveChanges();
+
+                return roomStatus;
+            } catch (Exception) {
+                throw;
+            }
         }
 
         public List<RoomStatus> GetAllRoomStatus()

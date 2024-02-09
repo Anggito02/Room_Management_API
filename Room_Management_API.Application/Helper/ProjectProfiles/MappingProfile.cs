@@ -12,6 +12,7 @@ namespace Room_Management_API.Application.Helper.ProjectProfiles
             CreateMap<RoomType, RoomTypeResultDTO>();
             CreateMap<RoomTypeInputDTO, RoomType>();
             CreateMap<RoomStatus, RoomStatusResultDTO>();
+            CreateMap<RoomStatusInputDTO, RoomStatus>();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
                 return StatusCode(200, result);
             } catch (Exception ex) {
                 if (ex is KeyNotFoundException) return StatusCode(404, ex.Message);
-                
+
                 return StatusCode(500, ex.Message);
             }
         }
@@ -59,8 +59,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
                 var result = _roomTypeService.CreateRoomType(roomTypeInputVM);
 
                 return StatusCode(200, result);
-            } 
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 return StatusCode(500, ex.Message);
             }
         }

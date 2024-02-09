@@ -51,5 +51,17 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPost]
+        public ActionResult<RoomStatusResultVM> Post([FromBody] RoomStatusInputVM roomStatusInputVM)
+        {
+            try {
+                var result = _roomStatusService.CreateRoomStatus(roomStatusInputVM.Data);
+
+                return StatusCode(200, result);
+            } catch (Exception ex) {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

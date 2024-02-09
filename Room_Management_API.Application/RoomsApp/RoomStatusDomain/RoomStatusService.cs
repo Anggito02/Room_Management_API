@@ -14,9 +14,18 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
         private readonly IRoomStatusRepository _roomStatusRepository = roomStatusRepository;
         private readonly IMapper _mapper = mapper;
 
-        public RoomStatusResultVM CreateRoomStatus(RoomStatusInputVM inputVM)
+        public RoomStatusResultVM CreateRoomStatus(RoomStatusInputDTO inputDTO)
         {
-            throw new NotImplementedException();
+            try {
+                var entity = _roomStatusRepository.CreateRoomStatus(inputDTO);
+
+                var resultVM = new RoomStatusResultVM();
+                resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(entity));
+
+                return resultVM;
+            } catch (Exception) {
+                throw;
+            }
         }
 
         public RoomStatusResultVM GetAllRoomStatus()
