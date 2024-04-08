@@ -1,17 +1,13 @@
 namespace Room_Management_API.Domain.Rooms
 {
-    public class Rooms
+    public class Rooms : BaseModel
     {
-        public Guid Id { get; set; }
         public string RoomName { get; set; } = string.Empty;
         public string RoomNumber { get; set; } = string.Empty;
         public decimal RoomArea { get; set; }
         public int Capacity { get; set; }
         public bool IsAvailable { get; set; }
         public string Description { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime DeletedAt { get; set; }
         
         // Foreign Key
         public Guid RoomTypeId { get; set; }

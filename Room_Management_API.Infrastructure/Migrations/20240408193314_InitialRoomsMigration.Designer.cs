@@ -12,8 +12,8 @@ using Room_Management_API.Infrastructure.RoomsInfrastructure;
 namespace Room_Management_API.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomsDbContext))]
-    [Migration("20240131074705_AddRoomsEntities")]
-    partial class AddRoomsEntities
+    [Migration("20240408193314_InitialRoomsMigration")]
+    partial class InitialRoomsMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace Room_Management_API.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -107,13 +110,11 @@ namespace Room_Management_API.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -129,9 +130,8 @@ namespace Room_Management_API.Infrastructure.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Width")
                         .HasColumnType("integer");
