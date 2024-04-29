@@ -3,26 +3,26 @@ namespace Room_Management_API.Domain.Users
     public class Users
     {
         public Guid Id { get; set; }
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string IdentityNumber { get; set; } = string.Empty;
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+        public required string IdentityNumber { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string PhoneNumber { get; set; }
+        public required string Address { get; set; }
         public enum Gender { MALE, FEMALE };
-        public string Photo { get; set; } = string.Empty;
-        public string CreatedAt { get; set; } = string.Empty;
-        public string UpdatedAt { get; set; } = string.Empty;
-        public string DeletedAt { get; set; } = string.Empty;
+        public required string Photo { get; set; }
+        public required string CreatedAt { get; set; }
+        public required string UpdatedAt { get; set; }
+        public required string DeletedAt { get; set; }
 
         // Foreign Key
         public Guid RoleId { get; set; }
         public Guid DepartmentId { get; set; }
         public Guid StatusId { get; set; }
 
-        public Roles Role { get; set; } = null!;
-        public Departments Department { get; set; } = null!;
-        public EmployeeStatus Status { get; set; } = null!;
+        public required Roles Role { get; set; } 
+        public required Departments Department { get; set; } 
+        public required EmployeeStatus Status { get; set; } 
     }
 }

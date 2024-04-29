@@ -4,7 +4,7 @@ namespace Room_Management_API.Application.Helper.ViewModels.RoomsVMs
 {
     public class RoomStatusInputVM
     {
-        public RoomStatusInputDTO Data { get; set; } = new RoomStatusInputDTO();
+        public required RoomStatusInputDTO Data { get; set; }
     }
 
     public class RoomStatusResultVM

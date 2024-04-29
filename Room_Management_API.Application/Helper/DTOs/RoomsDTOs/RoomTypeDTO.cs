@@ -2,7 +2,7 @@ namespace Room_Management_API.Application.Helper.DTOs.RoomsDTOs
 {
     public class RoomTypeDTO
     {
-        public string TypeName { get; set; } = string.Empty;
+        public required string TypeName { get; set; }
     }
 
     public class RoomTypeInputDTO : RoomTypeDTO

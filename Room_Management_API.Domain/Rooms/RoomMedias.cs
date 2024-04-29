@@ -2,15 +2,15 @@ namespace Room_Management_API.Domain.Rooms
 {
     public class RoomMedias : BaseModel
     { 
-        public string Path { get; set; } = string.Empty;
-        public string AltText { get; set; } = string.Empty;
+        public required string Path { get; set; }
+        public required string AltText { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public int Size { get; set; }
         public enum Extension { JPG, PNG, JPEG, GIF }
-        public string Description { get; set; } = string.Empty;
+        public required string Description { get; set; }
 
         // Navigation Properties
-        public IList<RoomMedia> RoomMedia { get; set; } = null!;
+        public required IList<RoomMedia> RoomMedia { get; set; } 
     }
 }

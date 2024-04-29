@@ -53,7 +53,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
         }
 
         [HttpPost]
-        public ActionResult<RoomTypeResultVM> Post([FromBody] RoomTypeInputVM roomTypeInputVM)
+        public ActionResult<RoomTypeResultVM> Post( RoomTypeInputVM roomTypeInputVM)
         {
             try {
                 var result = _roomTypeService.CreateRoomType(roomTypeInputVM);

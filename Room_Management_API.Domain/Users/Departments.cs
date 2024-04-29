@@ -3,9 +3,9 @@ namespace Room_Management_API.Domain.Users
     public class Departments
     {
         public Guid Id { get; set; }
-        public string DepartmentName { get; set; } = string.Empty;
+        public required string DepartmentName { get; set; }
 
         //Navigation Properties
-        public ICollection<Users> Users { get; set; } = null!;
+        public required ICollection<Users> Users { get; set; } 
     }
 }

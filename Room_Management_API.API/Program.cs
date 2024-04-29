@@ -12,6 +12,10 @@ using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain;
 using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf;
 
+using Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain.IRoomFacilities;
+using Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain;
+using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomFacilitiesInf;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Register Configuration
@@ -37,6 +41,8 @@ builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
 builder.Services.AddScoped<IRoomStatusService, RoomStatusService>();
 builder.Services.AddScoped<IRoomStatusRepository, RoomStatusRepository>();
+builder.Services.AddScoped<IRoomFacilitiesService, RoomFacilitiesService>();
+builder.Services.AddScoped<IRoomFacilitiesRepository, RoomFacilitiesRepository>();
 
 // Automapper
 var mapperConfiguration = new MapperConfiguration(conf =>

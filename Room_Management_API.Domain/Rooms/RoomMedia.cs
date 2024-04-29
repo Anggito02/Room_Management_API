@@ -9,7 +9,7 @@ namespace Room_Management_API.Domain.Rooms
         public Guid RoomMediasId { get; set; }
 
         // Navigation Property
-        public Rooms Room { get; set; } = null!;
-        public RoomMedias RoomMedias { get; set; } = null!;
+        public required Rooms Room { get; set; } 
+        public required RoomMedias RoomMedias { get; set; } 
     }
 }
