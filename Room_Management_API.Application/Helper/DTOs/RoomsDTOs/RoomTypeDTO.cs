@@ -5,12 +5,12 @@ namespace Room_Management_API.Application.Helper.DTOs.RoomsDTOs
         public required string TypeName { get; set; }
     }
 
-    public class RoomTypeInputDTO : RoomTypeDTO
+    public class AddRoomTypeDTO : RoomTypeDTO
     {
         
     }
 
-    public class RoomTypeResultDTO : RoomTypeDTO
+    public class GetRoomTypeDTO : RoomTypeDTO
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

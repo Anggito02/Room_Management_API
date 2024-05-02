@@ -19,13 +19,19 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
             try {
                 var entity = _roomTypeRepository.CreateRoomType(inputVM.Data);
                 
-                var resultVM = new RoomTypeResultVM();
-                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(entity));
-
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 200,
+                    Message = "Room Type Created Successfully"
+                };
+                resultVM.Data.Add(_mapper.Map<GetRoomTypeDTO>(entity));
                 return resultVM;
             }
-            catch (Exception) {
-                throw;
+            catch (Exception ex) {
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
 
@@ -33,16 +39,22 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
         {
             try {
                 var entity = _roomTypeRepository.GetAllRoomTypes();
-                var resultVM = new RoomTypeResultVM();
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 200,
+                    Message = "Room Type Retrieved Successfully"
+                };
 
                 foreach (var e in entity)
                 {
-                    resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
+                    resultVM.Data.Add(_mapper.Map<GetRoomTypeDTO>(e));
                 }
-
-            return resultVM;
-            } catch (Exception){
-                throw;
+                return resultVM;
+            } catch (Exception ex){
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
 
@@ -51,31 +63,43 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
             try {
                 var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new KeyNotFoundException("Room type not found");             
 
-                var resultVM = new RoomTypeResultVM();
-                resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(entity));
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 200,
+                    Message = "Room Type Retrieved Successfully"
+                };
+                resultVM.Data.Add(_mapper.Map<GetRoomTypeDTO>(entity));
 
                 return resultVM;
-            } catch (Exception){
-                throw;
+            } catch (Exception ex){
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
 
         public RoomTypeResultVM? GetRoomTypeByTypeName(string typeName)
         {
             try {
-                typeName = "%" + typeName.Replace("-", " ") + "%";
-
                 var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName) ?? throw new KeyNotFoundException("Room type not found");
 
-                var resultVM = new RoomTypeResultVM();
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 200,
+                    Message = "Room Type Retrieved Successfully"
+                };
                 
                 foreach (var e in entity) {
-                    resultVM.Data.Add(_mapper.Map<RoomTypeResultDTO>(e));
+                    resultVM.Data.Add(_mapper.Map<GetRoomTypeDTO>(e));
                 }
 
                 return resultVM;
-            } catch (Exception){
-                throw;
+            } catch (Exception ex){
+                var resultVM = new RoomTypeResultVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
     }

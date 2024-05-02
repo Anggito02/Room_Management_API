@@ -15,7 +15,7 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
         private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
         private readonly IMapper _mapper = mapper;
 
-        public RoomType CreateRoomType(RoomTypeInputDTO inputDTO)
+        public RoomType CreateRoomType(AddRoomTypeDTO inputDTO)
         {
             try {
                 var roomType = _mapper.Map<RoomType>(inputDTO);
@@ -53,6 +53,8 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
         public List<RoomType>? GetRoomTypeByTypeName(string typeName)
         {
             try {
+                typeName = "%" + typeName.Replace("-", " ") + "%";
+                
                 return _roomManagementDbContext.ROOM_TYPE.Where(t => EF.Functions.ILike(t.TypeName, typeName)).ToList();
             } catch (Exception) {
                 throw;

@@ -15,6 +15,7 @@ using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf;
 using Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain.IRoomFacilities;
 using Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain;
 using Room_Management_API.Infrastructure.RoomsInfrastructure.RoomFacilitiesInf;
+using Room_Management_API.Application.Helper.Validators.RoomsValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,8 +40,12 @@ builder.Services.AddDbContext<RoomsDbContext>(
 // Dependency Injection
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
+builder.Services.AddScoped<IRoomTypeValidator, RoomTypeValidator>();
+
 builder.Services.AddScoped<IRoomStatusService, RoomStatusService>();
 builder.Services.AddScoped<IRoomStatusRepository, RoomStatusRepository>();
+builder.Services.AddScoped<IRoomStatusValidator, RoomStatusValidator>();
+
 builder.Services.AddScoped<IRoomFacilitiesService, RoomFacilitiesService>();
 builder.Services.AddScoped<IRoomFacilitiesRepository, RoomFacilitiesRepository>();
 

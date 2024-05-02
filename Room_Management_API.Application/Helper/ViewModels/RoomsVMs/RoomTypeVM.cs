@@ -4,10 +4,12 @@ namespace Room_Management_API.Application.Helper.ViewModels.RoomsVMs
 {
     public class RoomTypeInputVM
     {
-        public required RoomTypeInputDTO Data { get; set; }
+        public required AddRoomTypeDTO Data { get; set; }
     }
-    public class RoomTypeResultVM 
+    public class RoomTypeResultVM
     {
-        public List<RoomTypeResultDTO> Data { get; set; } = new List<RoomTypeResultDTO>();
+        public List<GetRoomTypeDTO> Data { get; set; } = new List<GetRoomTypeDTO>();
+        public int StatusCode { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

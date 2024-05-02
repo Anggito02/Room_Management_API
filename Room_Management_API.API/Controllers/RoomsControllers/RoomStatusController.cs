@@ -13,35 +13,31 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
         private readonly IRoomStatusService _roomStatusService = roomStatusService;
 
         [HttpGet("/api/RoomStatus/pkId/{pkId}")]
-        public ActionResult<RoomStatusResultVM> Get(Guid pkId)
+        public ActionResult<GetRoomStatusVM> Get(Guid pkId)
         {
             try {
                 var result = _roomStatusService.GetRoomStatusByPkId(pkId);
 
                 return StatusCode(200, result);
             } catch (Exception ex) {
-                if (ex is KeyNotFoundException) return StatusCode(404, ex.Message);
-
                 return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet("/api/RoomStatus/statusName/{statusName}")]
-        public ActionResult<RoomStatusResultVM> Get(string statusName)
+        public ActionResult<GetRoomStatusVM> Get(string statusName)
         {
             try {
                 var result = _roomStatusService.GetRoomStatusByStatusName(statusName);
 
                 return StatusCode(200, result);
             } catch (Exception ex) {
-                if (ex is KeyNotFoundException) return StatusCode(404, ex.Message);
-
                 return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet]
-        public ActionResult<List<RoomStatusResultVM>> Get()
+        public ActionResult<List<GetRoomStatusVM>> Get()
         {
             try {
                 var result = _roomStatusService.GetAllRoomStatus();
@@ -53,7 +49,7 @@ namespace Room_Management_API.API.Controllers.RoomsControllers
         }
 
         [HttpPost]
-        public ActionResult<RoomStatusResultVM> Post(RoomStatusInputVM roomStatusInputVM)
+        public ActionResult<GetRoomStatusVM> Post(AddRoomStatusVM roomStatusInputVM)
         {
             try {
                 var result = _roomStatusService.CreateRoomStatus(roomStatusInputVM);
