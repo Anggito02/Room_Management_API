@@ -15,7 +15,7 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
         private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
         private readonly IMapper _mapper = mapper;
 
-        public RoomStatus CreateRoomStatus(RoomStatusInputDTO inputDTO)
+        public RoomStatus CreateRoomStatus(AddRoomStatusDTO inputDTO)
         {
             try {
                 var roomStatus = _mapper.Map<RoomStatus>(inputDTO);

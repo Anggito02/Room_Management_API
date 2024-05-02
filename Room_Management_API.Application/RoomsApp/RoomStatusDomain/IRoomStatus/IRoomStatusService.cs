@@ -4,9 +4,9 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus
 {
     public interface IRoomStatusService
     {
-        RoomStatusResultVM CreateRoomStatus(RoomStatusInputVM inputVM);
-        RoomStatusResultVM GetAllRoomStatus();
-        RoomStatusResultVM? GetRoomStatusByPkId(Guid id);
-        RoomStatusResultVM? GetRoomStatusByStatusName(string statusName);
+        GetRoomStatusVM CreateRoomStatus(AddRoomStatusVM inputVM);
+        GetRoomStatusVM GetAllRoomStatus();
+        GetRoomStatusVM? GetRoomStatusByPkId(Guid id);
+        GetRoomStatusVM? GetRoomStatusByStatusName(string statusName);
     }
 }

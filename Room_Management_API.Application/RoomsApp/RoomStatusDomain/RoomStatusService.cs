@@ -3,79 +3,129 @@ using AutoMapper;
 using Room_Management_API.Application.RoomsApp.RoomStatusDomain.IRoomStatus;
 using Room_Management_API.Application.Helper.ViewModels.RoomsVMs;
 using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+using Room_Management_API.Application.Helper.Validators.RoomsValidators;
+using Room_Management_API.Application.Helper.Exceptions;
 
 namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
 {
     public class RoomStatusService(
+        IRoomStatusValidator roomStatusValidator,
         IRoomStatusRepository roomStatusRepository,
         IMapper mapper
         ) : IRoomStatusService
     {
+        private readonly IRoomStatusValidator _roomStatusValidator = roomStatusValidator;
         private readonly IRoomStatusRepository _roomStatusRepository = roomStatusRepository;
         private readonly IMapper _mapper = mapper;
 
-        public RoomStatusResultVM CreateRoomStatus(RoomStatusInputVM inputVM)
+        public GetRoomStatusVM CreateRoomStatus(AddRoomStatusVM inputVM)
         {
             try {
-                var entity = _roomStatusRepository.CreateRoomStatus(inputVM.Data);
+                _roomStatusValidator.ValidateAddRoomStatus(inputVM);
 
-                var resultVM = new RoomStatusResultVM();
-                resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(entity));
+                var entity = _roomStatusRepository.CreateRoomStatus(_mapper.Map<AddRoomStatusDTO>(inputVM));
+
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 200,
+                    Message = "Room Status Created Successfully"
+                };
+                resultVM.Data.Add(_mapper.Map<GetRoomStatusDTO>(entity));
 
                 return resultVM;
-            } catch (Exception) {
-                throw;
+            } catch (DuplicateDataException ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 409,
+                    Message = ex.Message
+                };
+                return resultVM;
+            } catch (Exception ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
 
-        public RoomStatusResultVM GetAllRoomStatus()
+        public GetRoomStatusVM GetAllRoomStatus()
         {
             try {
                 var entity = _roomStatusRepository.GetAllRoomStatus();
-                var resultVM = new RoomStatusResultVM();
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 200,
+                    Message = "Room Status Retrieved Successfully"
+                };
 
                 foreach (var e in entity)
                 {
-                    resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(e));
+                    resultVM.Data.Add(_mapper.Map<GetRoomStatusDTO>(e));
                 }
 
                 return resultVM;
-            } catch (Exception) {
-                throw;
+            } catch (Exception ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+
+                return resultVM;
             }
         }
 
-        public RoomStatusResultVM? GetRoomStatusByPkId(Guid id)
+        public GetRoomStatusVM? GetRoomStatusByPkId(Guid id)
         {
             try {
                 var entity = _roomStatusRepository.GetRoomStatusByPkId(id) ?? throw new KeyNotFoundException("Room status not found");
-                var resultVM = new RoomStatusResultVM();
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 200,
+                    Message = "Room Status Retrieved Successfully"
+                };
 
-                resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(entity));
+                resultVM.Data.Add(_mapper.Map<GetRoomStatusDTO>(entity));
 
                 return resultVM;
-            } catch (Exception) {
-                throw;
+            } catch (KeyNotFoundException ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 404,
+                    Message = ex.Message
+                };
+                return resultVM;
+            } catch (Exception ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
 
-        public RoomStatusResultVM? GetRoomStatusByStatusName(string statusName)
+        public GetRoomStatusVM? GetRoomStatusByStatusName(string statusName)
         {
             try {
                 statusName = '%' + statusName.Replace("-", " ") + "%";
 
                 var entity = _roomStatusRepository.GetRoomStatusByStatusName(statusName) ?? throw new KeyNotFoundException("Room status not found");
 
-                var resultVM = new RoomStatusResultVM();
+                var resultVM = new GetRoomStatusVM();
 
                 foreach (var e in entity)
                 {
-                    resultVM.Data.Add(_mapper.Map<RoomStatusResultDTO>(e));
+                    resultVM.Data.Add(_mapper.Map<GetRoomStatusDTO>(e));
                 }
 
                 return resultVM;
-            } catch (Exception) {
-                throw;
+            } catch (KeyNotFoundException ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 404,
+                    Message = ex.Message
+                };
+                return resultVM;
+            } catch (Exception ex) {
+                var resultVM = new GetRoomStatusVM {
+                    StatusCode = 500,
+                    Message = ex.Message
+                };
+                return resultVM;
             }
         }
     }
