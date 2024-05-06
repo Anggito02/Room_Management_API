@@ -4,47 +4,97 @@ using AutoMapper;
 using Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain.IRoomFacilities;
 using Room_Management_API.Domain.Rooms;
 using Room_Management_API.Application.Helper.DTOs.RoomsDTOs;
+using System.Reflection;
 
 namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomFacilitiesInf
 {
     public class RoomFacilitiesRepository
     (
-
+        RoomsDbContext roomManagementDbContext,
+        IMapper mapper
     ) : IRoomFacilitiesRepository
     {
-        public RoomFacilities CreateRoomFacilities(RoomFacilitiesInputDTO inputDTO)
+        private readonly RoomsDbContext _roomManagementDbContext = roomManagementDbContext;
+        private readonly IMapper _mapper = mapper;
+
+        public RoomFacilities CreateRoomFacilities(AddRoomFacilitiesDTO inputDTO)
         {
-            throw new NotImplementedException();
+            try {
+                var roomFacilities = _mapper.Map<RoomFacilities>(inputDTO);
+
+                roomFacilities.Id = Guid.NewGuid();
+                roomFacilities.CreatedAt = DateTime.UtcNow;
+                roomFacilities.UpdatedAt = DateTime.UtcNow;
+                roomFacilities.IsDeleted = false;
+
+                _roomManagementDbContext.ROOM_FACILITIES.Add(roomFacilities);
+                _roomManagementDbContext.SaveChanges();
+
+                return roomFacilities;
+            } catch {
+                throw;
+            }
         }
 
-        public bool DeleteRoomFacilitiesByPkId(int pkId)
+        public bool DeleteRoomFacilitiesByPkId(Guid pkId)
         {
-            throw new NotImplementedException();
+            try {
+                var roomFacilities = _roomManagementDbContext.ROOM_FACILITIES.Find(pkId) ?? throw new KeyNotFoundException("Room facilities not found");
+
+                roomFacilities.IsDeleted = true;
+                roomFacilities.UpdatedAt = DateTime.UtcNow;
+                roomFacilities.DeletedAt = DateTime.UtcNow;
+
+                _roomManagementDbContext.ROOM_FACILITIES.Update(roomFacilities);
+                _roomManagementDbContext.SaveChanges();
+
+                return true;
+            } catch {
+                throw;
+            }
         }
 
-        public List<RoomFacilities> GetAllRoomFacilities()
+        public List<RoomFacilities> GetAllRoomFacilities(FilterRoomFacilitiesDTO filterDTO)
         {
-            throw new NotImplementedException();
+            try {
+                string nameFilter = "%" + filterDTO.Name + "%";
+
+                return _roomManagementDbContext.ROOM_FACILITIES
+                    .Where(s => s.IsAvailable == filterDTO.IsAvailable)
+                    .Where(s => EF.Functions.ILike(s.Name, nameFilter))
+                    .Where(s => s.IsDeleted == false)
+                    .ToList();
+            } catch {
+                throw;
+            }
         }
 
-        public RoomFacilities GetRoomFacilitiesByName(string name)
+        public RoomFacilities? GetRoomFacilitiesByPkId(Guid id)
         {
-            throw new NotImplementedException();
+            try {
+                return _roomManagementDbContext.ROOM_FACILITIES.Find(id);
+            } catch {
+                throw;
+            }
         }
 
-        public RoomFacilities GetRoomFacilitiesByPkId(int pkId)
+        public RoomFacilities UpdateRoomFacilities(UpdateRoomFacilitiesDTO updateDTO)
         {
-            throw new NotImplementedException();
-        }
+            try {
+                var roomFacilities = _roomManagementDbContext.ROOM_FACILITIES.Find(updateDTO.Id) ?? throw new KeyNotFoundException("Room facilities not found");
 
-        public bool IsRoomFacilitiesAvailable(string name)
-        {
-            throw new NotImplementedException();
-        }
+                roomFacilities.Name = updateDTO.Name;
+                roomFacilities.Description = updateDTO.Description;
+                roomFacilities.IsAvailable = updateDTO.IsAvailable;
+                roomFacilities.UpdatedAt = DateTime.UtcNow;
 
-        public RoomFacilities UpdateRoomFacilities(RoomFacilitiesUpdateDTO updateDTO)
-        {
-            throw new NotImplementedException();
+                _roomManagementDbContext.ROOM_FACILITIES.Update(roomFacilities);
+                _roomManagementDbContext.SaveChanges();
+
+                return roomFacilities;
+            } catch {
+                throw;
+            }
         }
     }
 }

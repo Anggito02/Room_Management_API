@@ -11,12 +11,18 @@ namespace Room_Management_API.Application.Helper.ProjectProfiles
         public MappingProfile()
         {
             CreateMap<AddRoomTypeVM, AddRoomTypeDTO>();
-            CreateMap<RoomType, GetRoomTypeDTO>();
             CreateMap<AddRoomTypeDTO, RoomType>();
+            CreateMap<RoomType, GetRoomTypeDTO>();
 
             CreateMap<AddRoomStatusVM, AddRoomStatusDTO>();
-            CreateMap<RoomStatus, GetRoomStatusDTO>();
             CreateMap<AddRoomStatusDTO, RoomStatus>();
+            CreateMap<RoomStatus, GetRoomStatusDTO>();
+
+            CreateMap<AddRoomFacilitiesVM, AddRoomFacilitiesDTO>();
+            CreateMap<AddRoomFacilitiesDTO, RoomFacilities>();
+            CreateMap<RoomFacilities, GetRoomFacilitiesDTO>();
+            CreateMap<FilterRoomFacilitiesVM, FilterRoomFacilitiesDTO>();
+            CreateMap<UpdateRoomFacilitiesVM, UpdateRoomFacilitiesDTO>();
         }
     }
 }

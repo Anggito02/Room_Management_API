@@ -5,12 +5,10 @@ namespace Room_Management_API.Application.RoomsApp.RoomFacilitiesDomain.IRoomFac
 {
     public interface IRoomFacilitiesRepository
     {
-        RoomFacilities CreateRoomFacilities(RoomFacilitiesInputDTO inputDTO);
-        List<RoomFacilities> GetAllRoomFacilities();
-        RoomFacilities GetRoomFacilitiesByPkId(int pkId);
-        RoomFacilities GetRoomFacilitiesByName(string name);
-        bool IsRoomFacilitiesAvailable(string name);
-        RoomFacilities UpdateRoomFacilities(RoomFacilitiesUpdateDTO updateDTO);
-        bool DeleteRoomFacilitiesByPkId(int pkId);
+        RoomFacilities CreateRoomFacilities(AddRoomFacilitiesDTO inputDTO);
+        List<RoomFacilities> GetAllRoomFacilities(FilterRoomFacilitiesDTO filterDTO);
+        RoomFacilities? GetRoomFacilitiesByPkId(Guid id);
+        RoomFacilities UpdateRoomFacilities(UpdateRoomFacilitiesDTO updateDTO);
+        bool DeleteRoomFacilitiesByPkId(Guid pkId);
     }
 }
