@@ -72,7 +72,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
         public GetRoomTypeVM? GetRoomTypeByPkId(Guid id)
         {
             try {
-                var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new KeyNotFoundException("Room type not found");             
+                var entity = _roomTypeRepository.GetRoomTypeByPkId(id) ?? throw new KeyNotFoundException("Room type not found");
 
                 var resultVM = new GetRoomTypeVM {
                     StatusCode = 200,
@@ -99,7 +99,7 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
         public GetRoomTypeVM? GetRoomTypeByTypeName(string typeName)
         {
             try {
-                var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName) ?? throw new KeyNotFoundException("Room type not found");
+                var entity = _roomTypeRepository.GetRoomTypeByTypeName(typeName);
 
                 var resultVM = new GetRoomTypeVM {
                     StatusCode = 200,
@@ -110,12 +110,6 @@ namespace Room_Management_API.Application.RoomsApp.RoomTypeDomain
                     resultVM.Data.Add(_mapper.Map<GetRoomTypeDTO>(e));
                 }
 
-                return resultVM;
-            } catch (KeyNotFoundException ex) {
-                var resultVM = new GetRoomTypeVM {
-                    StatusCode = 404,
-                    Message = ex.Message
-                };
                 return resultVM;
             } catch (Exception ex){
                 var resultVM = new GetRoomTypeVM {

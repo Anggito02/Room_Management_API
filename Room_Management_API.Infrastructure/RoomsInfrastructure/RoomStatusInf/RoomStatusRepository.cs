@@ -50,7 +50,7 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomStatusInf
             }
         }
 
-        public List<RoomStatus>? GetRoomStatusByStatusName(string statusName)
+        public List<RoomStatus> GetRoomStatusByStatusName(string statusName)
         {
             try {
                 return _roomManagementDbContext.ROOM_STATUS.Where(t => EF.Functions.ILike(t.StatusName, statusName)).ToList();

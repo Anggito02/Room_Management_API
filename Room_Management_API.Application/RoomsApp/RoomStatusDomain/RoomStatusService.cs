@@ -104,21 +104,13 @@ namespace Room_Management_API.Application.RoomsApp.RoomStatusDomain
             try {
                 statusName = '%' + statusName.Replace("-", " ") + "%";
 
-                var entity = _roomStatusRepository.GetRoomStatusByStatusName(statusName) ?? throw new KeyNotFoundException("Room status not found");
-
+                var entity = _roomStatusRepository.GetRoomStatusByStatusName(statusName);
                 var resultVM = new GetRoomStatusVM();
-
                 foreach (var e in entity)
                 {
                     resultVM.Data.Add(_mapper.Map<GetRoomStatusDTO>(e));
                 }
 
-                return resultVM;
-            } catch (KeyNotFoundException ex) {
-                var resultVM = new GetRoomStatusVM {
-                    StatusCode = 404,
-                    Message = ex.Message
-                };
                 return resultVM;
             } catch (Exception ex) {
                 var resultVM = new GetRoomStatusVM {

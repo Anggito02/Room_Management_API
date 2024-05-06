@@ -50,7 +50,7 @@ namespace Room_Management_API.Infrastructure.RoomsInfrastructure.RoomTypeInf
             }
         }
 
-        public List<RoomType>? GetRoomTypeByTypeName(string typeName)
+        public List<RoomType> GetRoomTypeByTypeName(string typeName)
         {
             try {
                 typeName = "%" + typeName.Replace("-", " ") + "%";
