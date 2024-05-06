@@ -48,6 +48,7 @@ builder.Services.AddScoped<IRoomStatusValidator, RoomStatusValidator>();
 
 builder.Services.AddScoped<IRoomFacilitiesService, RoomFacilitiesService>();
 builder.Services.AddScoped<IRoomFacilitiesRepository, RoomFacilitiesRepository>();
+builder.Services.AddScoped<IRoomFacilitiesValidator, RoomFacilitiesValidator>();
 
 // Automapper
 var mapperConfiguration = new MapperConfiguration(conf =>
